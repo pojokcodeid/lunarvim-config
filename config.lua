@@ -268,6 +268,21 @@ lvim.builtin.cmp.mapping = {
 	["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 	["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 }
+-- personal snippet
+local luasnip = require("luasnip")
+require("luasnip/loaders/from_vscode").lazy_load()
+lvim.builtin.cmp.snippet = {
+	expand = function(args)
+		luasnip.lsp_expand(args.body)
+	end,
+}
+
+local lpath = vim.fn.stdpath("config") .. "/snippets"
+require("luasnip.loaders.from_vscode").lazy_load({ paths = lpath .. "/html" })
+require("luasnip.loaders.from_vscode").lazy_load({ paths = lpath .. "/font-awesome" })
+require("luasnip.loaders.from_vscode").load({ paths = lpath .. "/html" })
+require("luasnip.loaders.from_vscode").load({ paths = lpath .. "/font-awesome" })
+
 local ls_conf = pcall(require, "coderunner_config")
 if not ls_conf then
 	return
