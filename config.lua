@@ -262,4 +262,5 @@ lvim.builtin.alpha.dashboard.section.footer.val = footer()
 --   end,
 -- })
 
-require("coderunner_config")
+local ls_conf = pcall(require, "coderunner_config")
+if not ls_conf then return end
