@@ -262,4 +262,4 @@ lvim.builtin.alpha.dashboard.section.footer.val = footer()
 --   end,
 -- })
 
-require("coderunner")
+require("coderunner_config")
