@@ -224,14 +224,14 @@ lvim.plugins = {
 	{
 		"CRAG666/code_runner.nvim",
 		requires = "nvim-lua/plenary.nvim",
-		-- config = function()
-		-- 	require("coderunner")
-		-- end,
+		config = function()
+			require("config.coderunner_config")
+		end,
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
 		config = function()
-			require("colorizer")
+			require("config.colorizer")
 		end,
 	},
 }
@@ -285,8 +285,3 @@ lsload.lazy_load({ paths = lpath .. "/html" })
 lsload.lazy_load({ paths = lpath .. "/font-awesome" })
 lsload.load({ paths = lpath .. "/html" })
 lsload.load({ paths = lpath .. "/font-awesome" })
-
-local ls_conf = pcall(require, "coderunner_config")
-if not ls_conf then
-	return
-end
