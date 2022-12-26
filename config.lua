@@ -275,7 +275,7 @@ lvim.plugins = {
 		"CRAG666/code_runner.nvim",
 		requires = "nvim-lua/plenary.nvim",
 		config = function()
-			require("config.coderunner_config")
+			require("config.coderunner")
 		end,
 	},
 	{
