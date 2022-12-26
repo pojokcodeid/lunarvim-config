@@ -9,6 +9,8 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
+vim.opt.title = true
+vim.opt.titlestring = "%<%F%=%l/%L - Pojok Code"
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
 lvim.colorscheme = "lunar"
@@ -278,10 +280,11 @@ lvim.builtin.cmp.snippet = {
 }
 
 local lpath = vim.fn.stdpath("config") .. "/snippets"
-require("luasnip.loaders.from_vscode").lazy_load({ paths = lpath .. "/html" })
-require("luasnip.loaders.from_vscode").lazy_load({ paths = lpath .. "/font-awesome" })
-require("luasnip.loaders.from_vscode").load({ paths = lpath .. "/html" })
-require("luasnip.loaders.from_vscode").load({ paths = lpath .. "/font-awesome" })
+local lsload = require("luasnip/loaders/from_vscode")
+lsload.lazy_load({ paths = lpath .. "/html" })
+lsload.lazy_load({ paths = lpath .. "/font-awesome" })
+lsload.load({ paths = lpath .. "/html" })
+lsload.load({ paths = lpath .. "/font-awesome" })
 
 local ls_conf = pcall(require, "coderunner_config")
 if not ls_conf then
