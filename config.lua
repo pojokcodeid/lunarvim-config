@@ -12,6 +12,7 @@ an executable
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
 lvim.colorscheme = "lunar"
+-- lvim.builtin.cmp.enabled = false
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -261,6 +262,13 @@ lvim.builtin.alpha.dashboard.section.footer.val = footer()
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
-
+local cmp = require("cmp")
+lvim.builtin.cmp.mapping = {
+	["<CR>"] = cmp.mapping.confirm({ select = true }),
+	["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+	["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+}
 local ls_conf = pcall(require, "coderunner_config")
-if not ls_conf then return end
+if not ls_conf then
+	return
+end
