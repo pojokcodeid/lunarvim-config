@@ -221,20 +221,14 @@ lvim.plugins = {
 	{
 		"CRAG666/code_runner.nvim",
 		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("coderunner")
-		end,
+		-- config = function()
+		-- 	require("coderunner")
+		-- end,
 	},
 	{
 		"NvChad/nvim-colorizer.lua",
 		config = function()
 			require("colorizer")
-		end,
-	},
-	{
-		"goolord/alpha-nvim",
-		config = function()
-			require("alpha")
 		end,
 	},
 }
@@ -267,3 +261,5 @@ lvim.builtin.alpha.dashboard.section.footer.val = footer()
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+
+require("coderunner")
