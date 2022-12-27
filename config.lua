@@ -10,48 +10,48 @@ an executable
 
 -- start general options
 local options = {
-	backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
-	clipboard = "unnamedplus", -- Connection to the system clipboard
-	cmdheight = 0, -- hide command line unless needed
-	completeopt = { "menuone", "noselect" }, -- Options for insert mode completion
-	copyindent = true, -- Copy the previous indentation on autoindenting
-	cursorline = true, -- Highlight the text line of the cursor
-	expandtab = true, -- Enable the use of space in tab
-	fileencoding = "utf-8", -- File content encoding for the buffer
-	fillchars = { eob = " " }, -- Disable `~` on nonexistent lines
-	history = 100, -- Number of commands to remember in a history table
-	ignorecase = true, -- Case insensitive searching
-	laststatus = 3, -- globalstatus
-	lazyredraw = true, -- lazily redraw screen
-	mouse = "a", -- Enable mouse support
-	number = true, -- Show numberline
-	preserveindent = true, -- Preserve indent structure as much as possible
-	pumheight = 10, -- Height of the pop up menu
-	relativenumber = true, -- Show relative numberline
-	scrolloff = 8, -- Number of lines to keep above and below the cursor
-	shiftwidth = 2, -- Number of space inserted for indentation
-	showmode = false, -- Disable showing modes in command line
-	showtabline = 2, -- always display tabline
-	sidescrolloff = 8, -- Number of columns to keep at the sides of the cursor
-	signcolumn = "yes", -- Always show the sign column
-	smartcase = true, -- Case sensitivie searching
-	splitbelow = true, -- Splitting a new window below the current one
-	splitright = true, -- Splitting a new window at the right of the current one
-	swapfile = false, -- Disable use of swapfile for the buffer
-	tabstop = 2, -- Number of space in a tab
-	termguicolors = true, -- Enable 24-bit RGB color in the TUI
-	timeoutlen = 300, -- Length of time to wait for a mapped sequence
-	undofile = true, -- Enable persistent undo
-	updatetime = 300, -- Length of time to wait before triggering the plugin
-	wrap = true, -- Disable wrapping of lines longer than the width of window
-	writebackup = false, -- Disable making a backup before overwriting a file
-	-- minimal number of screen columns either side of cursor if wrap is `false`
-	-- guifont = "monospace:h17", -- the font used in graphical neovim applications
-	guifont = "Source_Code_Pro:h17", -- the font used in graphical neovim applications
-	whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line            -- which "horizontal" keys are allowed to travel to prev/next line
+  backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
+  clipboard = "unnamedplus", -- Connection to the system clipboard
+  cmdheight = 0, -- hide command line unless needed
+  completeopt = { "menuone", "noselect" }, -- Options for insert mode completion
+  copyindent = true, -- Copy the previous indentation on autoindenting
+  cursorline = true, -- Highlight the text line of the cursor
+  expandtab = true, -- Enable the use of space in tab
+  fileencoding = "utf-8", -- File content encoding for the buffer
+  fillchars = { eob = " " }, -- Disable `~` on nonexistent lines
+  history = 100, -- Number of commands to remember in a history table
+  ignorecase = true, -- Case insensitive searching
+  laststatus = 3, -- globalstatus
+  lazyredraw = true, -- lazily redraw screen
+  mouse = "a", -- Enable mouse support
+  number = true, -- Show numberline
+  preserveindent = true, -- Preserve indent structure as much as possible
+  pumheight = 10, -- Height of the pop up menu
+  relativenumber = true, -- Show relative numberline
+  scrolloff = 8, -- Number of lines to keep above and below the cursor
+  shiftwidth = 2, -- Number of space inserted for indentation
+  showmode = false, -- Disable showing modes in command line
+  showtabline = 2, -- always display tabline
+  sidescrolloff = 8, -- Number of columns to keep at the sides of the cursor
+  signcolumn = "yes", -- Always show the sign column
+  smartcase = true, -- Case sensitivie searching
+  splitbelow = true, -- Splitting a new window below the current one
+  splitright = true, -- Splitting a new window at the right of the current one
+  swapfile = false, -- Disable use of swapfile for the buffer
+  tabstop = 2, -- Number of space in a tab
+  termguicolors = true, -- Enable 24-bit RGB color in the TUI
+  timeoutlen = 300, -- Length of time to wait for a mapped sequence
+  undofile = true, -- Enable persistent undo
+  updatetime = 300, -- Length of time to wait before triggering the plugin
+  wrap = true, -- Disable wrapping of lines longer than the width of window
+  writebackup = false, -- Disable making a backup before overwriting a file
+  -- minimal number of screen columns either side of cursor if wrap is `false`
+  -- guifont = "monospace:h17", -- the font used in graphical neovim applications
+  guifont = "Source_Code_Pro:h17", -- the font used in graphical neovim applications
+  whichwrap = "bs<>[]hl", -- which "horizontal" keys are allowed to travel to prev/next line            -- which "horizontal" keys are allowed to travel to prev/next line
 }
 for k, v in pairs(options) do
-	vim.opt[k] = v
+  vim.opt[k] = v
 end
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages
 vim.opt.iskeyword:append("-") -- hyphenated words recognized by searches
@@ -63,6 +63,7 @@ vim.opt.titlestring = "%<%F%=%l/%L - Pojok Code"
 --
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
+lvim.lsp.automatic_servers_installation = true
 lvim.colorscheme = "lunar"
 -- lvim.builtin.cmp.enabled = false
 -- to disable icons and use a minimalist setup, uncomment the following
@@ -141,19 +142,19 @@ lvim.keys.normal_mode["q"] = "<cmd>q<cr>"
 -- }
 
 lvim.builtin.which_key.mappings["r"] = {
-	name = "Run",
-	s = {
-		'<cmd>autocmd bufwritepost [^_]*.sass,[^_]*.scss  silent exec "!sass %:p %:r.css"<CR>',
-		"Auto Compile Sass",
-	},
-	r = { "<cmd>RunCode<CR>", "Run Code" },
-	f = { "<cmd>RunFile<CR>", "Run File" },
-	p = { "<cmd>RunProject<CR>", "Run Project" },
-	g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
-	m = {
-		"<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
-		"Run MVN",
-	},
+  name = "Run",
+  s = {
+    '<cmd>autocmd bufwritepost [^_]*.sass,[^_]*.scss  silent exec "!sass %:p %:r.css"<CR>',
+    "Auto Compile Sass",
+  },
+  r = { "<cmd>RunCode<CR>", "Run Code" },
+  f = { "<cmd>RunFile<CR>", "Run File" },
+  p = { "<cmd>RunProject<CR>", "Run Project" },
+  g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
+  m = {
+    "<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
+    "Run MVN",
+  },
 }
 
 -- TODO: User Config for predefined plugins
@@ -166,18 +167,19 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-	"bash",
-	"c",
-	"javascript",
-	"json",
-	"lua",
-	"python",
-	"typescript",
-	"tsx",
-	"css",
-	"rust",
-	"java",
-	"yaml",
+  "bash",
+  "c",
+  "javascript",
+  "json",
+  "lua",
+  "python",
+  "typescript",
+  "tsx",
+  "css",
+  "rust",
+  "java",
+  "yaml",
+  "html",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -186,10 +188,17 @@ lvim.builtin.treesitter.highlight.enable = true
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
--- lvim.lsp.installer.setup.ensure_installed = {
---     "sumneko_lua",
---     "jsonls",
--- }
+lvim.lsp.installer.setup.ensure_installed = {
+  "sumneko_lua",
+  "jsonls",
+  "html",
+  "cssls",
+  "emmet_ls",
+  "tsserver",
+  "jdtls",
+}
+-- loang language
+require("lvim.lsp.manager").setup("emmet_ls")
 -- -- change UI setting of `LspInstallInfo`
 -- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
 -- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
@@ -227,36 +236,36 @@ lvim.builtin.treesitter.highlight.enable = true
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	{ command = "black", filetypes = { "python" } },
-	{ command = "isort", filetypes = { "python" } },
-	{
-		-- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-		command = "prettier",
-		---@usage arguments to pass to the formatter
-		-- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-		extra_args = { "--print-with", "100" },
-		---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-		filetypes = { "typescript", "typescriptreact" },
-	},
-	{ command = "stylua", filetype = { "lua" } },
+  { command = "black", filetypes = { "python" } },
+  { command = "isort", filetypes = { "python" } },
+  {
+    -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+    command = "prettier",
+    ---@usage arguments to pass to the formatter
+    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+    extra_args = { "--print-with", "100" },
+    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+    -- filetypes = { "typescript", "typescriptreact" },
+  },
+  { command = "stylua", filetype = { "lua" } },
 })
 
 -- set additional linters
 local linters = require("lvim.lsp.null-ls.linters")
 linters.setup({
-	{ command = "flake8", filetypes = { "python" } },
-	{
-		-- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-		command = "shellcheck",
-		---@usage arguments to pass to the formatter
-		-- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-		extra_args = { "--severity", "warning" },
-	},
-	{
-		command = "codespell",
-		---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-		filetypes = { "javascript", "python" },
-	},
+  { command = "flake8", filetypes = { "python" } },
+  {
+    -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+    command = "shellcheck",
+    ---@usage arguments to pass to the formatter
+    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+    extra_args = { "--severity", "warning" },
+  },
+  {
+    command = "codespell",
+    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+    filetypes = { "javascript", "python" },
+  },
 })
 
 -- Additional Plugins
@@ -268,37 +277,38 @@ linters.setup({
 -- }
 
 lvim.plugins = {
-	{ "manzeloth/live-server" },
-	{ "mg979/vim-visual-multi" },
-	{ "navarasu/onedark.nvim" },
-	{
-		"CRAG666/code_runner.nvim",
-		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("config.coderunner")
-		end,
-	},
-	{
-		"NvChad/nvim-colorizer.lua",
-		config = function()
-			require("config.colorizer")
-		end,
-	},
+  { "manzeloth/live-server" },
+  { "mg979/vim-visual-multi" },
+  { "navarasu/onedark.nvim" },
+  {
+    "CRAG666/code_runner.nvim",
+    requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require("config.coderunner")
+    end,
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("config.colorizer")
+    end,
+  },
 }
 
 lvim.builtin.alpha.dashboard.section.header.val = {
-	[[             _       _                    _      ]],
-	[[            (_)     | |                  | |     ]],
-	[[ _ __   ___  _  ___ | | __   ___ ___   __| | ___ ]],
-	[[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
-	[[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
-	[[| .__/ \___/| |\___/|_|\_\  \___\___/ \__,_|\___|]],
-	[[| |        _/ |                                  ]],
-	[[|_|       |__/                                   ]],
+  [[             _       _                    _      ]],
+  [[            (_)     | |                  | |     ]],
+  [[ _ __   ___  _  ___ | | __   ___ ___   __| | ___ ]],
+  [[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
+  [[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
+  [[| .__/ \___/| |\___/|_|\_\  \___\___/ \__,_|\___|]],
+  [[| |        _/ |                                  ]],
+  [[|_|       |__/                                   ]],
 }
 local function footer()
-	return "Pojok Code"
+  return "Pojok Code"
 end
+
 lvim.builtin.alpha.dashboard.section.footer.val = footer()
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -316,17 +326,17 @@ lvim.builtin.alpha.dashboard.section.footer.val = footer()
 -- })
 local cmp = require("cmp")
 lvim.builtin.cmp.mapping = {
-	["<CR>"] = cmp.mapping.confirm({ select = true }),
-	["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-	["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+  ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+  ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 }
 -- personal snippet
 local luasnip = require("luasnip")
 require("luasnip/loaders/from_vscode").lazy_load()
 lvim.builtin.cmp.snippet = {
-	expand = function(args)
-		luasnip.lsp_expand(args.body)
-	end,
+  expand = function(args)
+    luasnip.lsp_expand(args.body)
+  end,
 }
 
 local lpath = vim.fn.stdpath("config") .. "/snippets"
