@@ -326,14 +326,56 @@ lvim.builtin.alpha.dashboard.section.footer.val = footer()
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+local luasnip = require("luasnip")
 local cmp = require("cmp")
 lvim.builtin.cmp.mapping = {
-	["<CR>"] = cmp.mapping.confirm({ select = true }),
 	["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 	["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+	["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+	["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+	["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+	["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+	["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+	["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+	["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+	["<C-y>"] = cmp.config.disable,
+	["<C-e>"] = cmp.mapping({
+		i = cmp.mapping.abort(),
+		c = cmp.mapping.close(),
+	}),
+	["<CR>"] = cmp.mapping.confirm({ select = true }),
+	["<Tab>"] = cmp.mapping(function(fallback)
+		if cmp.visible() then
+			cmp.select_next_item()
+		elseif luasnip.expandable() then
+			luasnip.expand()
+		elseif luasnip.expand_or_jumpable() then
+			luasnip.expand_or_jump()
+		elseif check_backspace() then
+			fallback()
+		else
+			fallback()
+		end
+	end, {
+		"i",
+		"s",
+	}),
+
+	["<S-Tab>"] = cmp.mapping(function(fallback)
+		if cmp.visible() then
+			cmp.select_prev_item()
+		elseif luasnip.jumpable(-1) then
+			luasnip.jump(-1)
+		else
+			fallback()
+		end
+	end, {
+		"i",
+		"s",
+	}),
 }
 -- personal snippet
-local luasnip = require("luasnip")
+-- local luasnip = require("luasnip")
 require("luasnip/loaders/from_vscode").lazy_load()
 lvim.builtin.cmp.snippet = {
 	expand = function(args)
