@@ -388,9 +388,12 @@ lvim.builtin.cmp.snippet = {
 	end,
 }
 
+
 local lpath = vim.fn.stdpath("config") .. "/snippets"
 local lsload = require("luasnip/loaders/from_vscode")
 lsload.lazy_load({ paths = lpath .. "/html" })
 lsload.lazy_load({ paths = lpath .. "/font-awesome" })
+lsload.lazy_load({ paths = lpath .. "/B5-Snippets" })
 lsload.load({ paths = lpath .. "/html" })
 lsload.load({ paths = lpath .. "/font-awesome" })
+lsload.load({ paths = lpath .. "/B5-Snippets" })
