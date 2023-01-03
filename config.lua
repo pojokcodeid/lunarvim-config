@@ -7,8 +7,7 @@ a global executable or a path to
 an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
-
--- start general options
+-- start general pojok code
 local options = {
 	backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
 	clipboard = "unnamedplus", -- Connection to the system clipboard
@@ -59,13 +58,12 @@ vim.opt.formatoptions:remove({ "c", "r", "o" }) -- don't insert the current comm
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- separate vim plugins from neovim in case vim still in use
 vim.opt.title = true
 vim.opt.titlestring = "%<%F%=%l/%L - Pojok Code"
--- end global options
---
+-- end general pojok code
+-- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
-lvim.lsp.automatic_servers_installation = true
 lvim.colorscheme = "lunar"
--- lvim.builtin.cmp.enabled = false
+-- lvim.colorscheme = "gruvbox"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -73,9 +71,8 @@ lvim.colorscheme = "lunar"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
-lvim.keys.normal_mode["q"] = ":q<cr>"
 
--- Move text up and down
+-- add by pojok code
 lvim.keys.visual_mode["J"] = ":move '>+1<CR>gv-gv"
 lvim.keys.visual_mode["K"] = ":move '<-2<CR>gv-gv"
 lvim.keys.visual_mode["<A-j>"] = ":move '>+1<CR>gv-gv"
@@ -100,6 +97,7 @@ lvim.keys.normal_mode["<M-j>"] = "<cmd>m+<cr>"
 lvim.keys.normal_mode["<M-k>"] = "<cmd>m-2<cr>"
 lvim.keys.normal_mode["<C-s>"] = "<cmd>w<cr>"
 lvim.keys.normal_mode["q"] = "<cmd>q<cr>"
+-- end pojok code
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
@@ -141,29 +139,13 @@ lvim.keys.normal_mode["q"] = "<cmd>q<cr>"
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 -- }
 
-lvim.builtin.which_key.mappings["r"] = {
-	name = "Run",
-	s = {
-		'<cmd>autocmd bufwritepost [^_]*.sass,[^_]*.scss  silent exec "!sass %:p %:r.css"<CR>',
-		"Auto Compile Sass",
-	},
-	r = { "<cmd>RunCode<CR>", "Run Code" },
-	f = { "<cmd>RunFile<CR>", "Run File" },
-	p = { "<cmd>RunProject<CR>", "Run Project" },
-	g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
-	m = {
-		"<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
-		"Run MVN",
-	},
-}
-
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.alpha.active = true
+lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -179,7 +161,6 @@ lvim.builtin.treesitter.ensure_installed = {
 	"rust",
 	"java",
 	"yaml",
-	"html",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -188,19 +169,10 @@ lvim.builtin.treesitter.highlight.enable = true
 -- generic LSP settings
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
-lvim.lsp.installer.setup.ensure_installed = {
-	"sumneko_lua",
-	"jsonls",
-	"html",
-	"cssls",
-	"emmet_ls",
-	"tsserver",
-	"jdtls",
-	"intelephense",
-	"clangd",
-}
--- loang language
-require("lvim.lsp.manager").setup("emmet_ls")
+-- lvim.lsp.installer.setup.ensure_installed = {
+--     "sumneko_lua",
+--     "jsonls",
+-- }
 -- -- change UI setting of `LspInstallInfo`
 -- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
 -- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
@@ -235,40 +207,39 @@ require("lvim.lsp.manager").setup("emmet_ls")
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- set a formatter, this will override the language server formatting capabilities (if it exists)
-local formatters = require("lvim.lsp.null-ls.formatters")
-formatters.setup({
-	{ command = "black", filetypes = { "python" } },
-	{ command = "isort", filetypes = { "python" } },
-	{
-		-- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-		command = "prettier",
-		---@usage arguments to pass to the formatter
-		-- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-		extra_args = { "--print-with", "100" },
-		---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-		-- filetypes = { "typescript", "typescriptreact" },
-	},
-	{ command = "stylua", filetype = { "lua" } },
-})
+-- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- local formatters = require "lvim.lsp.null-ls.formatters"
+-- formatters.setup {
+--   { command = "black", filetypes = { "python" } },
+--   { command = "isort", filetypes = { "python" } },
+--   {
+--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+--     command = "prettier",
+--     ---@usage arguments to pass to the formatter
+--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+--     extra_args = { "--print-with", "100" },
+--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+--     filetypes = { "typescript", "typescriptreact" },
+--   },
+-- }
 
--- set additional linters
-local linters = require("lvim.lsp.null-ls.linters")
-linters.setup({
-	{ command = "flake8", filetypes = { "python" } },
-	{
-		-- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
-		command = "shellcheck",
-		---@usage arguments to pass to the formatter
-		-- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-		extra_args = { "--severity", "warning" },
-	},
-	{
-		command = "codespell",
-		---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-		filetypes = { "javascript", "python" },
-	},
-})
+-- -- set additional linters
+-- local linters = require "lvim.lsp.null-ls.linters"
+-- linters.setup {
+--   { command = "flake8", filetypes = { "python" } },
+--   {
+--     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+--     command = "shellcheck",
+--     ---@usage arguments to pass to the formatter
+--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+--     extra_args = { "--severity", "warning" },
+--   },
+--   {
+--     command = "codespell",
+--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+--     filetypes = { "javascript", "python" },
+--   },
+-- }
 
 -- Additional Plugins
 -- lvim.plugins = {
@@ -278,10 +249,38 @@ linters.setup({
 --     },
 -- }
 
+-- Autocommands (https://neovim.io/doc/user/autocmd.html)
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = { "*.json", "*.jsonc" },
+--   -- enable wrap mode for json files only
+--   command = "setlocal wrap",
+-- })
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "zsh",
+--   callback = function()
+--     -- let treesitter use bash highlight for zsh files as well
+--     require("nvim-treesitter.highlight").attach(0, "bash")
+--   end,
+-- })
+
+lvim.builtin.alpha.dashboard.section.header.val = {
+	[[             _       _                    _      ]],
+	[[ _ __   ___ (_) ___ | | __   ___ ___   __| | ___ ]],
+	[[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
+	[[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
+	[[| .__/ \___// |\___/|_|\_\  \___\___/ \__,_|\___|]],
+	[[|_|       |__/                                   ]],
+}
+local function footer()
+	return "Pojok Code"
+end
+
+lvim.builtin.alpha.dashboard.section.footer.val = footer()
+
 lvim.plugins = {
+	{ "ellisonleao/gruvbox.nvim" },
 	{ "manzeloth/live-server" },
 	{ "mg979/vim-visual-multi" },
-	{ "navarasu/onedark.nvim" },
 	{
 		"CRAG666/code_runner.nvim",
 		requires = "nvim-lua/plenary.nvim",
@@ -297,35 +296,22 @@ lvim.plugins = {
 	},
 }
 
-lvim.builtin.alpha.dashboard.section.header.val = {
-	[[             _       _                    _      ]],
-	[[            (_)     | |                  | |     ]],
-	[[ _ __   ___  _  ___ | | __   ___ ___   __| | ___ ]],
-	[[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
-	[[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
-	[[| .__/ \___/| |\___/|_|\_\  \___\___/ \__,_|\___|]],
-	[[| |        _/ |                                  ]],
-	[[|_|       |__/                                   ]],
+lvim.builtin.which_key.mappings["r"] = {
+	name = "Run",
+	s = {
+		'<cmd>autocmd bufwritepost [^_]*.sass,[^_]*.scss  silent exec "!sass %:p %:r.css"<CR>',
+		"Auto Compile Sass",
+	},
+	r = { "<cmd>RunCode<CR>", "Run Code" },
+	f = { "<cmd>RunFile<CR>", "Run File" },
+	p = { "<cmd>RunProject<CR>", "Run Project" },
+	g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
+	m = {
+		"<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
+		"Run MVN",
+	},
 }
-local function footer()
-	return "Pojok Code"
-end
 
-lvim.builtin.alpha.dashboard.section.footer.val = footer()
-
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = { "*.json", "*.jsonc" },
---   -- enable wrap mode for json files only
---   command = "setlocal wrap",
--- })
--- vim.api.nvim_create_autocmd("FileType", {
---   pattern = "zsh",
---   callback = function()
---     -- let treesitter use bash highlight for zsh files as well
---     require("nvim-treesitter.highlight").attach(0, "bash")
---   end,
--- })
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
@@ -379,21 +365,26 @@ lvim.builtin.cmp.mapping = {
 		"s",
 	}),
 }
--- personal snippet
--- local luasnip = require("luasnip")
-require("luasnip/loaders/from_vscode").lazy_load()
-lvim.builtin.cmp.snippet = {
-	expand = function(args)
-		luasnip.lsp_expand(args.body)
-	end,
+-- lsp installer
+lvim.lsp.installer.setup.ensure_installed = {
+	"sumneko_lua",
+	"jsonls",
+	"html",
+	"cssls",
+	"emmet_ls",
+	"tsserver",
+	"intelephense",
+	"tailwindcss",
 }
 
+require("lvim.lsp.manager").setup("emmet_ls")
+require("lvim.lsp.manager").setup("tailwindcss")
+require("lvim.lsp.manager").setup("intelephense")
 
-local lpath = vim.fn.stdpath("config") .. "/snippets"
-local lsload = require("luasnip/loaders/from_vscode")
-lsload.lazy_load({ paths = lpath .. "/html" })
-lsload.lazy_load({ paths = lpath .. "/font-awesome" })
-lsload.lazy_load({ paths = lpath .. "/B5-Snippets" })
-lsload.load({ paths = lpath .. "/html" })
-lsload.load({ paths = lpath .. "/font-awesome" })
-lsload.load({ paths = lpath .. "/B5-Snippets" })
+local formatters = require("lvim.lsp.null-ls.formatters")
+formatters.setup({
+	{ command = "stylua", filetype = { "lua" } },
+	{ command = "prettier" },
+	{ command = "blade_formatter", filetype = { "php", "blade", "blade.php" } },
+})
+
