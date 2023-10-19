@@ -323,8 +323,10 @@ lvim.builtin.cmp.mapping = {
 -- lsp installer
 lvim.lsp.installer.setup.ensure_installed = {
 	"jsonls",
+	"lua_ls",
 }
 
+require("lvim.lsp.manager").setup("lua_ls")
 -- require("lvim.lsp.manager").setup("tailwindcss")
 -- require("lvim.lsp.manager").setup("intelephense")
 
