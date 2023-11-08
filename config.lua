@@ -9,18 +9,18 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 -- start general pojok code
 local options = {
-	backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
-  clipboard = "unnamedplus", -- Connection to the system clipboard
-	cmdheight = 0, -- hide command line unless needed
-  tabstop = 2, -- Number of space in a tab
-  wrap = true, -- Disable wrapping of lines longer than the width of window
+  backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
+  clipboard = "unnamedplus",                    -- Connection to the system clipboard
+  cmdheight = 0,                                -- hide command line unless needed
+  tabstop = 2,                                  -- Number of space in a tab
+  wrap = true,                                  -- Disable wrapping of lines longer than the width of window
 }
 for k, v in pairs(options) do
-	vim.opt[k] = v
+  vim.opt[k] = v
 end
-vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages
-vim.opt.iskeyword:append("-") -- hyphenated words recognized by searches
-vim.opt.formatoptions:remove({ "c", "r", "o" }) -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
+vim.opt.shortmess:append("c")                         -- don't give |ins-completion-menu| messages
+vim.opt.iskeyword:append("-")                         -- hyphenated words recognized by searches
+vim.opt.formatoptions:remove({ "c", "r", "o" })       -- don't insert the current comment leader automatically for auto-wrapping comments using 'textwidth', hitting <Enter> in insert mode, or hitting 'o' or 'O' in normal mode.
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles") -- separate vim plugins from neovim in case vim still in use
 vim.opt.title = true
 vim.opt.titlestring = "%<%F%=%l/%L - Pojok Code"
@@ -115,8 +115,8 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-	"bash",
-	"lua"
+  "bash",
+  "lua"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -220,120 +220,131 @@ lvim.builtin.treesitter.highlight.enable = true
 -- })
 
 lvim.builtin.alpha.dashboard.section.header.val = {
-	[[             _       _                    _      ]],
-	[[ _ __   ___ (_) ___ | | __   ___ ___   __| | ___ ]],
-	[[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
-	[[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
-	[[| .__/ \___// |\___/|_|\_\  \___\___/ \__,_|\___|]],
-	[[|_|       |__/                                   ]],
+  [[             _       _                    _      ]],
+  [[ _ __   ___ (_) ___ | | __   ___ ___   __| | ___ ]],
+  [[| '_ \ / _ \| |/ _ \| |/ /  / __/ _ \ / _` |/ _ \]],
+  [[| |_) | (_) | | (_) |   <  | (_| (_) | (_| |  __/]],
+  [[| .__/ \___// |\___/|_|\_\  \___\___/ \__,_|\___|]],
+  [[|_|       |__/                                   ]],
 }
 local function footer()
-	return "Pojok Code"
+  return "Pojok Code"
 end
 
 lvim.builtin.alpha.dashboard.section.footer.val = footer()
 
 lvim.plugins = {
-	{ "ellisonleao/gruvbox.nvim" },
-	{ "mg979/vim-visual-multi" },
-	{
-		"CRAG666/code_runner.nvim",
-		dependencies = "nvim-lua/plenary.nvim",
-		config = function()
-			require("config.coderunner")
-		end,
-	},
-	{
-		"NvChad/nvim-colorizer.lua",
-		config = function()
-			require("config.colorizer")
-		end,
-	},
+  { "ellisonleao/gruvbox.nvim" },
+  { "mg979/vim-visual-multi" },
+  {
+    "CRAG666/code_runner.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      require("config.coderunner")
+    end,
+  },
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("config.colorizer")
+    end,
+  },
 }
 
 lvim.builtin.which_key.mappings["r"] = {
-	name = "Run",
-	s = {
-		'<cmd>autocmd bufwritepost [^_]*.sass,[^_]*.scss  silent exec "!sass %:p %:r.css"<CR>',
-		"Auto Compile Sass",
-	},
-	r = { "<cmd>RunCode<CR>", "Run Code" },
-	f = { "<cmd>RunFile<CR>", "Run File" },
-	p = { "<cmd>RunProject<CR>", "Run Project" },
-	g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
-	m = {
-		"<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
-		"Run MVN",
-	},
+  name = "Run",
+  s = {
+    '<cmd>autocmd bufwritepost [^_]*.sass,[^_]*.scss  silent exec "!sass %:p %:r.css"<CR>',
+    "Auto Compile Sass",
+  },
+  r = { "<cmd>RunCode<CR>", "Run Code" },
+  f = { "<cmd>RunFile<CR>", "Run File" },
+  p = { "<cmd>RunProject<CR>", "Run Project" },
+  g = { "<cmd>ToggleTerm size=70 direction=vertical<cr>gradle run<cr>", "Run Gradle" },
+  m = {
+    "<cmd>ToggleTerm size=70 direction=vertical<cr>mvn exec:java -Dexec.mainClass=com.pojokcode.App<cr>",
+    "Run MVN",
+  },
+}
+
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "Terminal",
+  f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+  h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+  v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+  s = { "<cmd>ToggleTerm direction=tab<cr>", "New Tab" },
 }
 
 local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 lvim.builtin.cmp.mapping = {
-	["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-	["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-	["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-	["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-	["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-	["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-	["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-	["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-	["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-	["<C-y>"] = cmp.config.disable,
-	["<C-e>"] = cmp.mapping({
-		i = cmp.mapping.abort(),
-		c = cmp.mapping.close(),
-	}),
-	["<CR>"] = cmp.mapping.confirm({ select = true }),
-	["<Tab>"] = cmp.mapping(function(fallback)
-		if cmp.visible() then
-			cmp.select_next_item()
-		elseif luasnip.expandable() then
-			luasnip.expand()
-		elseif luasnip.expand_or_jumpable() then
-			luasnip.expand_or_jump()
-		elseif check_backspace() then
-			fallback()
-		else
-			fallback()
-		end
-	end, {
-		"i",
-		"s",
-	}),
+  ["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+  ["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+  ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+  ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+  ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+  ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+  ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+  ["<C-y>"] = cmp.config.disable,
+  ["<C-e>"] = cmp.mapping({
+    i = cmp.mapping.abort(),
+    c = cmp.mapping.close(),
+  }),
+  ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  ["<Tab>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_next_item()
+    elseif luasnip.expandable() then
+      luasnip.expand()
+    elseif luasnip.expand_or_jumpable() then
+      luasnip.expand_or_jump()
+    elseif check_backspace() then
+      fallback()
+    else
+      fallback()
+    end
+  end, {
+    "i",
+    "s",
+  }),
 
-	["<S-Tab>"] = cmp.mapping(function(fallback)
-		if cmp.visible() then
-			cmp.select_prev_item()
-		elseif luasnip.jumpable(-1) then
-			luasnip.jump(-1)
-		else
-			fallback()
-		end
-	end, {
-		"i",
-		"s",
-	}),
+  ["<S-Tab>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+      cmp.select_prev_item()
+    elseif luasnip.jumpable(-1) then
+      luasnip.jump(-1)
+    else
+      fallback()
+    end
+  end, {
+    "i",
+    "s",
+  }),
 }
 -- lsp installer
 lvim.lsp.installer.setup.ensure_installed = {
-	"jsonls",
-	"lua_ls",
+  "jsonls",
+  "lua_ls",
+  "tailwindcss",
 }
 
+require("lvim.lsp.manager").setup("tailwindcss")
+require("lvim.lsp.manager").setup("emmet_ls")
+require("lvim.lsp.manager").setup("eslint")
 require("lvim.lsp.manager").setup("lua_ls")
--- require("lvim.lsp.manager").setup("tailwindcss")
 -- require("lvim.lsp.manager").setup("intelephense")
 
 local formatters = require("lvim.lsp.null-ls.formatters")
 formatters.setup({
-	{ command = "stylua", filetype = { "lua" } },
-	{ command = "prettier" },
-	{ command = "blade_formatter", filetype = { "php", "blade", "blade.php" } },
+  { command = "stylua",          filetype = { "lua" } },
+  { command = "prettier" },
+  { command = "blade_formatter", filetype = { "php", "blade", "blade.php" } },
 })
-
